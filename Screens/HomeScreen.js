@@ -1,24 +1,46 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {View, Text} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import {useSelector, useDispatch} from 'react-redux';
-import {addMessage} from '../Store/Reducers/BroadcastListener';
 
-const HomeScreen = () => {
-  const MessageRdx = useSelector(state => state.message);
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(addMessage('Hello this is message from HomeScreen'));
-  }, [dispatch]);
+import {View, StyleSheet, StatusBar} from 'react-native';
+import Button from '../Components/Button';
 
-  console.log(MessageRdx.messages);
+export default () => {
+  const navigation = useNavigation();
 
   return (
-    <View>
-      <Text>Hello, world!</Text>
-      <Icon name="favorite" size={30} color={'red'} />
+    <View style={style.body}>
+      <StatusBar hidden backgroundColor={'transparent'} />
+      <Button
+        title={'Animate'}
+        btnText={style.btnText}
+        btnStyle={style.btnStyle}
+        onPress={() => {
+          navigation.navigate('AnimationScreen');
+        }}
+      />
+      <Button
+        title={'Scroll view'}
+        btnText={style.btnText}
+        btnStyle={style.btnStyle}
+        onPress={() => {
+          navigation.navigate('Scroll');
+        }}
+      />
     </View>
   );
 };
 
-export default HomeScreen;
+const style = StyleSheet.create({
+  body: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'black',
+  },
+  btnText: {
+    color: 'white',
+  },
+  btnStyle: {
+    padding: 12,
+  },
+});
